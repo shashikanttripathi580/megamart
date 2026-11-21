@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 import { formatCurrency } from '@/lib/utils';
+import { getProductImageUrl, handleImageErrorFallback } from '@/lib/imageUtils';
 import { Button } from '@/components/ui/button';
 import { EmptyState } from '@/components/common/EmptyState';
 import { validateCart } from '@/api/orders';
@@ -201,9 +202,10 @@ export const CartPage: React.FC = () => {
                 >
                   {primaryImage ? (
                     <img
-                      src={primaryImage}
+                      src={getProductImageUrl(primaryImage)}
                       alt={product.name}
-                      className="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply select-none"
+                      onError={(e) => handleImageErrorFallback(e, primaryImage)}
+                      className="max-h-full max-w-full w-auto h-auto object-contain select-none"
                     />
                   ) : (
                     <ShoppingBag className="w-5 h-5 sm:w-6 sm:h-6 text-slate-300" />

@@ -7,6 +7,7 @@ import { fetchProducts } from '@/api/products';
 import { ProductCard } from '@/components/common/ProductCard';
 import { ProductGridSkeleton } from '@/components/common/ProductSkeleton';
 import { EmptyState } from '@/components/common/EmptyState';
+import { getProductImageUrl, handleImageErrorFallback } from '@/lib/imageUtils';
 
 export const CategoryPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -117,8 +118,9 @@ export const CategoryPage: React.FC = () => {
         {category.image && (
           <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-xl bg-white/10 p-2 shrink-0 hidden sm:flex items-center justify-center overflow-hidden border border-white/20">
             <img
-              src={category.image}
+              src={getProductImageUrl(category.image)}
               alt={category.name}
+              onError={(e) => handleImageErrorFallback(e, category.image)}
               className="w-full h-full object-cover rounded-lg"
             />
           </div>

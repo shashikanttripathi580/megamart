@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 import { formatCurrency } from '@/lib/utils';
+import { getProductImageUrl, handleImageErrorFallback } from '@/lib/imageUtils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { createOrder, validateCart } from '@/api/orders';
@@ -620,7 +621,12 @@ export const CheckoutPage: React.FC = () => {
                   <div key={item.id} className="flex items-center justify-between gap-2.5 text-xs">
                     <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 p-1 flex items-center justify-center shrink-0 overflow-hidden">
                       {img ? (
-                        <img src={img} alt={item.product.name} className="max-h-full max-w-full object-contain mix-blend-multiply" />
+                        <img
+                          src={getProductImageUrl(img)}
+                          alt={item.product.name}
+                          onError={(e) => handleImageErrorFallback(e, img)}
+                          className="max-h-full max-w-full object-contain"
+                        />
                       ) : (
                         <div className="w-4 h-4 bg-slate-200 rounded" />
                       )}

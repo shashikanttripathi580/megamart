@@ -4,6 +4,7 @@ import { Plus, Minus, Package, AlertCircle, Zap } from 'lucide-react';
 import { Product, ProductVariant } from '@/types/store';
 import { useCart } from '@/hooks/useCart';
 import { formatCurrency } from '@/lib/utils';
+import { getProductImageUrl, handleImageErrorFallback } from '@/lib/imageUtils';
 import { Button } from '@/components/ui/button';
 
 interface ProductCardProps {
@@ -120,11 +121,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         <div className="h-full w-full flex items-center justify-center">
           {primaryImage && !imageError ? (
             <img
-              src={primaryImage}
+              src={getProductImageUrl(primaryImage)}
               alt={product.name}
-              onError={() => setImageError(true)}
-              loading="lazy"
-              className="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105 select-none"
+              onError={(e) => handleImageErrorFallback(e, primaryImage, () => setImageError(true))}
+              className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-300 group-hover:scale-105 select-none"
             />
           ) : (
             <div className="h-full w-full flex flex-col items-center justify-center text-slate-300 bg-slate-50/60 rounded-lg">

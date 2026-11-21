@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { getOrderByIdentifier } from '@/api/orders';
 import { formatCurrency } from '@/lib/utils';
+import { getProductImageUrl, handleImageErrorFallback } from '@/lib/imageUtils';
 import { Button } from '@/components/ui/button';
 import { EmptyState } from '@/components/common/EmptyState';
 
@@ -105,7 +106,12 @@ export const OrderSuccessPage: React.FC = () => {
                 <div className="flex items-center gap-3 min-w-0">
                   <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 p-1 shrink-0 flex items-center justify-center">
                     {item.image ? (
-                      <img src={item.image} alt={item.productName} className="max-h-full max-w-full object-contain mix-blend-multiply select-none" />
+                      <img
+                        src={getProductImageUrl(item.image)}
+                        alt={item.productName}
+                        onError={(e) => handleImageErrorFallback(e, item.image)}
+                        className="max-h-full max-w-full object-contain select-none"
+                      />
                     ) : (
                       <ShoppingBag className="w-4 h-4 text-slate-300" />
                     )}

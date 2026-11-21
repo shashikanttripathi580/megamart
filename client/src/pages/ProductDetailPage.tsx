@@ -17,6 +17,7 @@ import { fetchProductBySlug } from '@/api/products';
 import { useCart } from '@/hooks/useCart';
 import { ProductVariant } from '@/types/store';
 import { formatCurrency } from '@/lib/utils';
+import { getProductImageUrl, handleImageErrorFallback } from '@/lib/imageUtils';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { EmptyState } from '@/components/common/EmptyState';
@@ -161,10 +162,10 @@ export const ProductDetailPage: React.FC = () => {
           <div className="relative aspect-square w-full rounded-2xl bg-white border border-slate-200/90 flex items-center justify-center p-6 sm:p-8 overflow-hidden">
             {currentDisplayImage && !imageError ? (
               <img
-                src={currentDisplayImage}
+                src={getProductImageUrl(currentDisplayImage)}
                 alt={product.name}
-                onError={() => setImageError(true)}
-                className="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply select-none transition-transform duration-300 hover:scale-105"
+                onError={(e) => handleImageErrorFallback(e, currentDisplayImage, () => setImageError(true))}
+                className="max-h-full max-w-full w-auto h-auto object-contain select-none transition-transform duration-300 hover:scale-105"
               />
             ) : (
               <div className="flex flex-col items-center justify-center text-slate-300">
@@ -200,9 +201,10 @@ export const ProductDetailPage: React.FC = () => {
                   }`}
                 >
                   <img
-                    src={img.url}
+                    src={getProductImageUrl(img.url)}
                     alt={`${product.name} ${idx + 1}`}
-                    className="max-h-full max-w-full object-contain mix-blend-multiply"
+                    onError={(e) => handleImageErrorFallback(e, img.url)}
+                    className="max-h-full max-w-full object-contain"
                   />
                 </button>
               ))}

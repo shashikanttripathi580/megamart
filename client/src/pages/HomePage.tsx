@@ -14,6 +14,7 @@ import {
 import { fetchCategories } from '@/api/categories';
 import { fetchProducts } from '@/api/products';
 import { ProductCarousel } from '@/components/common/ProductCarousel';
+import { getProductImageUrl, handleImageErrorFallback } from '@/lib/imageUtils';
 
 export const HomePage: React.FC = () => {
   // 1. Fetch dynamic categories
@@ -94,10 +95,10 @@ export const HomePage: React.FC = () => {
                 <div className="w-14 h-14 sm:w-24 sm:h-24 rounded-lg sm:rounded-xl bg-white border border-slate-100 flex items-center justify-center overflow-hidden p-1.5 sm:p-2 group-hover:scale-105 transition-transform">
                   {cat.image ? (
                     <img
-                      src={cat.image}
+                      src={getProductImageUrl(cat.image)}
                       alt={cat.name}
-                      className="w-full h-full object-contain mix-blend-multiply"
-                      loading="lazy"
+                      onError={(e) => handleImageErrorFallback(e, cat.image)}
+                      className="w-full h-full object-contain"
                     />
                   ) : (
                     <Package className="w-7 h-7 sm:w-8 sm:h-8 text-emerald-700" />
