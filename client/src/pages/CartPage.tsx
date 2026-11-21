@@ -96,7 +96,7 @@ export const CartPage: React.FC = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6 sm:py-8 space-y-6 pb-24 lg:pb-8">
+    <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-8 space-y-5 sm:space-y-6 pb-28 lg:pb-8">
       {/* Page Title & Item Count */}
       <div className="flex items-center justify-between pb-4 border-b border-slate-200">
         <div>
@@ -186,7 +186,7 @@ export const CartPage: React.FC = () => {
             return (
               <div
                 key={item.id}
-                className={`flex items-center justify-between gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-2xl border transition-all ${
+                className={`flex items-center justify-between gap-2.5 sm:gap-4 p-3 sm:p-4 rounded-2xl border transition-all ${
                   isItemOutOfStock
                     ? 'border-rose-300 bg-rose-50/50'
                     : isItemInsufficientStock
@@ -197,7 +197,7 @@ export const CartPage: React.FC = () => {
                 {/* Product Thumbnail */}
                 <Link
                   to={`/products/${product.slug}`}
-                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-white border border-slate-200 p-2 shrink-0 flex items-center justify-center overflow-hidden"
+                  className="w-14 h-14 sm:w-20 sm:h-20 rounded-xl bg-white border border-slate-200 p-1.5 sm:p-2 shrink-0 flex items-center justify-center overflow-hidden"
                 >
                   {primaryImage ? (
                     <img
@@ -206,34 +206,34 @@ export const CartPage: React.FC = () => {
                       className="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply select-none"
                     />
                   ) : (
-                    <ShoppingBag className="w-6 h-6 text-slate-300" />
+                    <ShoppingBag className="w-5 h-5 sm:w-6 sm:h-6 text-slate-300" />
                   )}
                 </Link>
 
                 {/* Details */}
-                <div className="flex-1 min-w-0">
-                  <div className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider">
+                <div className="flex-1 min-w-0 pr-1">
+                  <div className="text-[9px] sm:text-[10px] font-bold text-emerald-700 uppercase tracking-wider truncate">
                     {product.brand}
                   </div>
                   <Link
                     to={`/products/${product.slug}`}
-                    className="text-xs sm:text-sm font-semibold text-slate-900 hover:text-emerald-700 transition-colors line-clamp-1"
+                    className="text-xs sm:text-sm font-semibold text-slate-900 hover:text-emerald-700 transition-colors line-clamp-2 sm:line-clamp-1 leading-tight sm:leading-normal"
                   >
                     {product.name}
                   </Link>
-                  <span className="text-[11px] text-slate-500 font-medium block mt-0.5">
+                  <span className="text-[10px] sm:text-[11px] text-slate-500 font-medium block mt-0.5 truncate">
                     {item.variant ? item.variant.name : product.weight || product.unit}
                   </span>
 
                   {/* Stock Warning Badges */}
                   {isItemOutOfStock && (
-                    <span className="inline-block mt-1 text-[10px] font-bold text-rose-700 bg-rose-100 border border-rose-200 px-1.5 py-0.5 rounded">
-                      Out of Stock — Please remove
+                    <span className="inline-block mt-1 text-[9px] sm:text-[10px] font-bold text-rose-700 bg-rose-100 border border-rose-200 px-1.5 py-0.5 rounded">
+                      Out of Stock
                     </span>
                   )}
                   {!isItemOutOfStock && isItemInsufficientStock && (
-                    <span className="inline-block mt-1 text-[10px] font-bold text-amber-800 bg-amber-100 border border-amber-200 px-1.5 py-0.5 rounded">
-                      Only {itemIssue?.availableStock ?? maxStock} available in stock
+                    <span className="inline-block mt-1 text-[9px] sm:text-[10px] font-bold text-amber-800 bg-amber-100 border border-amber-200 px-1.5 py-0.5 rounded">
+                      Only {itemIssue?.availableStock ?? maxStock} left
                     </span>
                   )}
 
@@ -249,23 +249,23 @@ export const CartPage: React.FC = () => {
                 </div>
 
                 {/* Quantity Controls & Line Total */}
-                <div className="flex flex-col items-end gap-2 shrink-0">
+                <div className="flex flex-col items-end gap-1.5 sm:gap-2 shrink-0">
                   {/* Stepper */}
-                  <div className="flex items-center rounded-lg border border-slate-200 bg-slate-50 h-8">
+                  <div className="flex items-center rounded-lg border border-slate-200 bg-slate-50 h-7 sm:h-8">
                     <button
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                      className="w-7 h-full flex items-center justify-center text-slate-600 hover:bg-slate-100 rounded-l-lg"
+                      className="w-6 sm:w-7 h-full flex items-center justify-center text-slate-600 hover:bg-slate-100 rounded-l-lg touch-manipulation"
                       aria-label="Decrease quantity"
                     >
                       <Minus className="w-3 h-3" />
                     </button>
-                    <span className="w-7 text-center text-xs font-bold text-slate-900 select-none">
+                    <span className="w-6 sm:w-7 text-center text-xs font-bold text-slate-900 select-none">
                       {item.quantity}
                     </span>
                     <button
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
                       disabled={item.quantity >= maxStock || isItemOutOfStock}
-                      className="w-7 h-full flex items-center justify-center text-slate-600 hover:bg-slate-100 rounded-r-lg disabled:opacity-30"
+                      className="w-6 sm:w-7 h-full flex items-center justify-center text-slate-600 hover:bg-slate-100 rounded-r-lg disabled:opacity-30 touch-manipulation"
                       aria-label="Increase quantity"
                     >
                       <Plus className="w-3 h-3" />
@@ -282,7 +282,7 @@ export const CartPage: React.FC = () => {
                   {/* Remove Button */}
                   <button
                     onClick={() => removeItem(item.id)}
-                    className="text-slate-400 hover:text-rose-600 text-xs p-1 transition-colors"
+                    className="text-slate-400 hover:text-rose-600 text-xs p-1 transition-colors touch-manipulation"
                     aria-label="Remove item"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -367,19 +367,22 @@ export const CartPage: React.FC = () => {
       </div>
 
       {/* Sticky Mobile Checkout Bar */}
-      <div className="fixed lg:hidden bottom-0 left-0 right-0 p-3 bg-white border-t border-slate-200 shadow-lg z-40 flex items-center justify-between gap-3">
+      <div 
+        className="fixed lg:hidden bottom-0 left-0 right-0 px-4 py-3 bg-white/95 backdrop-blur-md border-t border-slate-200 shadow-[0_-4px_16px_rgba(0,0,0,0.08)] z-40 flex items-center justify-between gap-3"
+        style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 12px), 12px)' }}
+      >
         <div>
-          <span className="text-[10px] text-slate-500 font-medium block">MegaMart Cart Total</span>
-          <span className="text-base font-black text-slate-900">{formatCurrency(total)}</span>
+          <span className="text-[10px] text-slate-500 font-medium block">MegaMart Total</span>
+          <span className="text-base sm:text-lg font-black text-slate-900">{formatCurrency(total)}</span>
         </div>
         <Button
           size="default"
           variant="supermarket"
           disabled={Boolean(hasBlockingIssues) || isValidating}
           onClick={() => navigate('/checkout')}
-          className="font-bold text-xs px-5 shadow-xs"
+          className="font-bold text-xs sm:text-sm px-5 h-10 shadow-xs touch-manipulation"
         >
-          Proceed to Checkout <ArrowRight className="w-3.5 h-3.5 ml-1" />
+          {isValidating ? 'Validating...' : 'Proceed to Checkout'} <ArrowRight className="w-3.5 h-3.5 ml-1" />
         </Button>
       </div>
     </div>

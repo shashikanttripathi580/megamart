@@ -133,7 +133,7 @@ export const ProductDetailPage: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-6 sm:py-8 space-y-8">
+    <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-8 space-y-6 sm:space-y-8 pb-28 md:pb-8">
       {/* Breadcrumb Bar */}
       <nav className="flex items-center gap-1.5 text-xs text-slate-500 overflow-x-auto no-scrollbar">
         <Link to="/" className="hover:text-emerald-700 transition-colors shrink-0">Home</Link>
@@ -413,6 +413,64 @@ export const ProductDetailPage: React.FC = () => {
               </p>
             </div>
           )}
+        </div>
+      </div>
+
+      {/* Sticky Mobile Add to Cart Bar */}
+      <div 
+        className="fixed md:hidden bottom-0 left-0 right-0 px-4 py-3 bg-white/95 backdrop-blur-md border-t border-slate-200 z-40 flex items-center justify-between gap-3 shadow-[0_-4px_16px_rgba(0,0,0,0.08)]"
+        style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 12px), 12px)' }}
+      >
+        <div className="min-w-0">
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-base sm:text-lg font-black text-slate-900">
+              {formatCurrency(effectivePrice * quantity)}
+            </span>
+            {effectiveMrp > effectivePrice && (
+              <span className="text-xs text-slate-400 line-through">
+                {formatCurrency(effectiveMrp * quantity)}
+              </span>
+            )}
+          </div>
+          <span className="text-[10px] text-slate-500 font-medium truncate block">
+            {selectedVariant ? selectedVariant.name : product.weight || product.unit}
+          </span>
+        </div>
+
+        <div className="flex items-center gap-2 shrink-0">
+          {/* Stepper on mobile bar */}
+          <div className="flex items-center rounded-lg border border-slate-200 bg-slate-50 h-9">
+            <button
+              onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+              disabled={quantity <= 1 || isOutOfStock}
+              className="w-7 h-full flex items-center justify-center text-slate-600 active:bg-slate-200 rounded-l-lg disabled:opacity-30 touch-manipulation"
+              aria-label="Decrease quantity"
+            >
+              <Minus className="w-3.5 h-3.5" />
+            </button>
+            <span className="w-7 text-center text-xs font-black select-none text-slate-900">
+              {quantity}
+            </span>
+            <button
+              onClick={() => setQuantity((q) => Math.min(effectiveStock, q + 1))}
+              disabled={quantity >= effectiveStock || isOutOfStock}
+              className="w-7 h-full flex items-center justify-center text-slate-600 active:bg-slate-200 rounded-r-lg disabled:opacity-30 touch-manipulation"
+              aria-label="Increase quantity"
+            >
+              <Plus className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          <Button
+            size="default"
+            variant="supermarket"
+            disabled={isOutOfStock}
+            onClick={handleAddToCart}
+            className="h-9 px-4 text-xs font-bold gap-1.5 shadow-xs touch-manipulation disabled:opacity-50"
+          >
+            <ShoppingBag className="w-4 h-4" />
+            <span>{isOutOfStock ? 'Sold Out' : 'Add to Cart'}</span>
+          </Button>
         </div>
       </div>
     </div>

@@ -53,7 +53,7 @@ export const OrderSuccessPage: React.FC = () => {
   const isPaid = order.payment.status === 'paid';
 
   return (
-    <div className="container mx-auto px-4 py-8 sm:py-12 max-w-2xl space-y-6">
+    <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-12 max-w-2xl space-y-5 sm:space-y-6 pb-20 sm:pb-12">
       {/* Celebration Header */}
       <div className="text-center space-y-3 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-xs">
         <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto ring-8 ring-emerald-50 animate-bounce">

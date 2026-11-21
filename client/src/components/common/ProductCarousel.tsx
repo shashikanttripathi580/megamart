@@ -63,7 +63,7 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({
         {Array.from({ length: skeletonCount }).map((_, i) => (
           <div
             key={i}
-            className="w-[calc(50%-6px)] sm:w-[calc(33.333%-8px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-11.2px)] shrink-0"
+            className="w-[calc(50%-6px)] min-w-[155px] sm:min-w-0 sm:w-[calc(33.333%-8px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-11.2px)] shrink-0"
           >
             <ProductCardSkeleton />
           </div>
@@ -116,7 +116,7 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({
         {products.map((product) => (
           <div
             key={product._id}
-            className="w-[calc(50%-6px)] sm:w-[calc(33.333%-8px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-11.2px)] shrink-0 flex flex-col"
+            className="w-[calc(50%-6px)] min-w-[155px] sm:min-w-0 sm:w-[calc(33.333%-8px)] md:w-[calc(25%-9px)] lg:w-[calc(20%-11.2px)] shrink-0 flex flex-col"
           >
             <ProductCard product={product} className="h-full" />
           </div>

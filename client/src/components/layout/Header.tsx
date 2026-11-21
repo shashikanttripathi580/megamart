@@ -80,18 +80,20 @@ export const Header: React.FC = () => {
   return (
     <header className="sticky top-0 z-50 w-full bg-white shadow-xs">
       {/* 1. Real Store Signboard-inspired Top Bar */}
-      <div className="bg-[#1c1917] text-slate-200 text-[11px] font-medium py-1.5 px-4 border-b border-[#2d2825]">
-        <div className="container mx-auto flex items-center justify-between gap-4">
+      <div className="bg-[#1c1917] text-slate-200 text-[11px] font-medium py-1.5 px-3 sm:px-4 border-b border-[#2d2825]">
+        <div className="container mx-auto flex items-center justify-between gap-2">
           {/* Location Selector */}
           <div className="relative">
             <button
               onClick={() => setLocationDropdownOpen(!locationDropdownOpen)}
-              className="flex items-center gap-1.5 hover:text-white transition-colors text-slate-300"
+              className="flex items-center gap-1 hover:text-white transition-colors text-slate-300 text-left"
               title="Select Delivery Location"
             >
               <MapPin className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-              <span>Deliver to: <strong className="text-white">{currentLocation.city} {currentLocation.pincode}</strong></span>
-              <ChevronDown className="w-3 h-3 text-slate-400" />
+              <span className="truncate max-w-[190px] sm:max-w-none">
+                Deliver to: <strong className="text-white">{currentLocation.city} {currentLocation.pincode}</strong>
+              </span>
+              <ChevronDown className="w-3 h-3 text-slate-400 shrink-0" />
             </button>
 
             {locationDropdownOpen && (
@@ -146,27 +148,43 @@ export const Header: React.FC = () => {
               <span>API Server</span>
             </button>
           </div>
+
+          {/* Mobile Server Config Link in Top Bar */}
+          <button
+            onClick={() => setServerConfigOpen(true)}
+            className="md:hidden flex items-center gap-1 text-slate-400 hover:text-white transition-colors text-[10px] px-1.5 py-0.5 rounded bg-white/5 border border-white/10 shrink-0"
+            title="Configure API Server"
+          >
+            <Server className="w-3 h-3 text-emerald-400" />
+            <span>Server</span>
+          </button>
         </div>
       </div>
 
       {/* 2. Main Header Bar */}
-      <div className="container mx-auto py-2.5 sm:py-3 px-4">
-        <div className="flex items-center justify-between gap-3 sm:gap-6">
+      <div className="container mx-auto py-2 sm:py-3 px-3 sm:px-4">
+        {/* Row 1: Brand Logo + Desktop Search + Cart & Drawer Menu */}
+        <div className="flex items-center justify-between gap-2.5 sm:gap-6">
           {/* Authentic Real Store Brand Logo */}
-          <Link to="/" className="flex items-center shrink-0 group transition-transform hover:scale-[1.02]" aria-label="Mega Mart Home">
-            <MegaMartLogo size="md" />
+          <Link to="/" className="flex items-center shrink-0 group transition-transform hover:scale-[1.02]" aria-label="MegaMart Home">
+            <div className="sm:hidden">
+              <MegaMartLogo size="sm" />
+            </div>
+            <div className="hidden sm:block">
+              <MegaMartLogo size="md" />
+            </div>
           </Link>
 
-          {/* Smart Search Bar */}
-          <form onSubmit={handleSearchSubmit} className="flex-1 max-w-2xl">
-            <div className="relative flex items-center">
+          {/* Desktop Search Bar (Hidden on Mobile) */}
+          <form onSubmit={handleSearchSubmit} className="hidden md:flex flex-1 max-w-2xl">
+            <div className="relative flex items-center w-full">
               <Search className="absolute left-3.5 w-4 h-4 text-slate-400 pointer-events-none" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for atta, rice, oil, biscuits, snacks, shampoo..."
-                className="w-full h-10 pl-10 pr-24 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition-all shadow-xs"
+                className="w-full h-10 pl-10 pr-24 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition-all shadow-xs"
               />
               <button
                 type="submit"
@@ -178,8 +196,11 @@ export const Header: React.FC = () => {
           </form>
 
           {/* Cart & Actions */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            <Link to="/products?sortBy=discountPercentage&sortOrder=desc" className="hidden lg:flex items-center gap-1.5 text-xs font-bold text-red-700 hover:text-red-800 px-3 py-2 rounded-lg hover:bg-red-50 transition-colors">
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+            <Link 
+              to="/products?sortBy=discountPercentage&sortOrder=desc" 
+              className="hidden lg:flex items-center gap-1.5 text-xs font-bold text-red-700 hover:text-red-800 px-3 py-2 rounded-lg hover:bg-red-50 transition-colors"
+            >
               <Flame className="w-4 h-4 text-red-500 fill-current" />
               <span>Deals</span>
             </Link>
@@ -188,11 +209,11 @@ export const Header: React.FC = () => {
               <Button
                 variant="supermarket"
                 size="default"
-                className="flex items-center gap-2 px-3 sm:px-4 h-10 shadow-sm bg-emerald-700 hover:bg-emerald-800 text-white"
+                className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 h-9 sm:h-10 shadow-sm bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl"
               >
                 <ShoppingBag className="w-4 h-4" />
                 <span className="font-bold hidden sm:inline">My Cart</span>
-                <span className="flex items-center justify-center bg-orange-500 text-white font-black text-xs h-5 min-w-5 px-1.5 rounded-full shadow-xs">
+                <span className="flex items-center justify-center bg-orange-500 text-white font-black text-[11px] sm:text-xs h-4.5 sm:h-5 min-w-[18px] sm:min-w-5 px-1 rounded-full shadow-xs">
                   {itemCount}
                 </span>
               </Button>
@@ -201,12 +222,62 @@ export const Header: React.FC = () => {
             {/* Mobile menu trigger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 md:hidden text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100"
+              className="p-1.5 md:hidden text-slate-700 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition-colors"
               aria-label="Toggle navigation"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
+        </div>
+
+        {/* Row 2: Mobile Search Bar (Full Width on Mobile) */}
+        <div className="mt-2 md:hidden">
+          <form onSubmit={handleSearchSubmit} className="w-full">
+            <div className="relative flex items-center">
+              <Search className="absolute left-3 w-4 h-4 text-slate-400 pointer-events-none" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search atta, dal, oil, biscuits, snacks..."
+                className="w-full h-9 pl-9 pr-20 rounded-xl border border-slate-200 bg-slate-100/80 focus:bg-white text-xs focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition-all shadow-2xs"
+              />
+              <button
+                type="submit"
+                className="absolute right-1 px-3 py-1 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-[11px] font-bold transition-colors shadow-2xs"
+              >
+                Search
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      {/* Row 3: Mobile Quick Category Pills (Horizontally Scrollable) */}
+      <div className="md:hidden border-t border-slate-100 bg-slate-50/70 py-1.5 px-3">
+        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar text-[11px] font-bold">
+          <Link
+            to="/products?sortBy=discountPercentage&sortOrder=desc"
+            className="shrink-0 flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-50 text-red-700 border border-red-200"
+          >
+            <Flame className="w-3 h-3 text-red-500 fill-current" />
+            <span>Deals</span>
+          </Link>
+          <Link
+            to="/products"
+            className="shrink-0 px-2.5 py-1 rounded-full bg-white text-slate-700 border border-slate-200"
+          >
+            All Aisles
+          </Link>
+          {categories.slice(0, 6).map((cat) => (
+            <Link
+              key={cat._id}
+              to={`/category/${cat.slug}`}
+              className="shrink-0 px-2.5 py-1 rounded-full bg-white text-slate-700 border border-slate-200 hover:border-emerald-500 whitespace-nowrap"
+            >
+              {cat.name}
+            </Link>
+          ))}
         </div>
       </div>
 

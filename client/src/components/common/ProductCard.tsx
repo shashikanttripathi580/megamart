@@ -115,7 +115,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       {/* 2. Studio Packshot Image Link */}
       <Link
         to={`/products/${product.slug}`}
-        className="relative block w-full aspect-square bg-white border-b border-slate-100 p-4 sm:p-5 overflow-hidden"
+        className="relative block w-full aspect-square bg-white border-b border-slate-100 p-2.5 sm:p-4 overflow-hidden"
       >
         <div className="h-full w-full flex items-center justify-center">
           {primaryImage && !imageError ? (
@@ -128,7 +128,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             />
           ) : (
             <div className="h-full w-full flex flex-col items-center justify-center text-slate-300 bg-slate-50/60 rounded-lg">
-              <Package className="w-10 h-10 stroke-[1.2]" />
+              <Package className="w-8 h-8 sm:w-10 sm:h-10 stroke-[1.2]" />
               <span className="text-[10px] text-slate-400 mt-1 font-medium">MegaMart</span>
             </div>
           )}
@@ -136,14 +136,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       </Link>
 
       {/* 3. Product Content Details */}
-      <div className="p-3.5 sm:p-4 flex-1 flex flex-col justify-between">
+      <div className="p-2.5 sm:p-3.5 flex-1 flex flex-col justify-between">
         <div>
           {/* Brand & Weight Pill */}
-          <div className="flex items-center justify-between gap-1 text-[11px] mb-1.5">
-            <span className="font-extrabold text-emerald-800 uppercase tracking-wider truncate text-[10px]">
+          <div className="flex items-center justify-between gap-1 text-[11px] mb-1">
+            <span className="font-extrabold text-emerald-800 uppercase tracking-wider truncate text-[9px] sm:text-[10px]">
               {product.brand}
             </span>
-            <span className="text-slate-600 font-semibold shrink-0 bg-slate-100 px-2 py-0.5 rounded-full text-[10px]">
+            <span className="text-slate-600 font-semibold shrink-0 bg-slate-100 px-1.5 py-0.5 rounded text-[9px] sm:text-[10px] max-w-[80px] sm:max-w-none truncate">
               {activeVariant ? activeVariant.name : product.weight || product.unit}
             </span>
           </div>
@@ -151,7 +151,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           {/* Title */}
           <Link
             to={`/products/${product.slug}`}
-            className="block text-xs sm:text-sm font-semibold text-slate-900 hover:text-emerald-700 transition-colors line-clamp-2 leading-snug min-h-[2.4rem]"
+            className="block text-xs sm:text-sm font-semibold text-slate-900 hover:text-emerald-700 transition-colors line-clamp-2 leading-tight sm:leading-snug min-h-[2rem] sm:min-h-[2.4rem]"
             title={product.name}
           >
             {product.name}
@@ -159,31 +159,31 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         {/* 4. JioMart Pricing & Add to Cart Stepper */}
-        <div className="pt-3 border-t border-slate-100 mt-3">
+        <div className="pt-2 sm:pt-3 border-t border-slate-100 mt-2">
           {/* Toast Warning */}
           {toastMessage && (
-            <div className="mb-2 p-1 px-2 rounded bg-amber-50 text-amber-800 text-[10px] flex items-center gap-1 border border-amber-200 animate-fadeIn">
+            <div className="mb-1.5 p-1 px-1.5 rounded bg-amber-50 text-amber-800 text-[10px] flex items-center gap-1 border border-amber-200 animate-fadeIn">
               <AlertCircle className="w-3 h-3 shrink-0" />
               <span className="truncate">{toastMessage}</span>
             </div>
           )}
 
-          <div className="flex items-end justify-between gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-1.5 sm:gap-2">
             {/* Price Stack */}
-            <div>
-              <div className="flex items-baseline gap-1.5">
-                <span className="text-base sm:text-lg font-black text-slate-950">
+            <div className="min-w-0">
+              <div className="flex items-baseline gap-1 flex-wrap">
+                <span className="text-sm sm:text-base lg:text-lg font-black text-slate-950">
                   {formatCurrency(effectivePrice)}
                 </span>
                 {effectiveMrp > effectivePrice && (
-                  <span className="text-[11px] text-slate-400 line-through">
+                  <span className="text-[10px] sm:text-[11px] text-slate-400 line-through">
                     {formatCurrency(effectiveMrp)}
                   </span>
                 )}
               </div>
               {savingsAmount > 0 && (
                 <div className="mt-0.5">
-                  <span className="text-[10px] font-black text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 inline-block leading-none">
+                  <span className="text-[9px] sm:text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 inline-block leading-none truncate max-w-full">
                     Save {formatCurrency(savingsAmount)}
                   </span>
                 </div>
@@ -191,32 +191,32 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             </div>
 
             {/* Add / Stepper Button */}
-            <div>
+            <div className="shrink-0 w-full sm:w-auto">
               {isOutOfStock ? (
                 <Button
                   size="sm"
                   variant="outline"
                   disabled
-                  className="h-8 px-2.5 text-[11px] text-slate-400 border-slate-200 bg-slate-50 rounded-lg"
+                  className="w-full sm:w-auto h-7 sm:h-8 px-2 text-[10px] sm:text-[11px] text-slate-400 border-slate-200 bg-slate-50 rounded-lg"
                 >
                   Sold Out
                 </Button>
               ) : currentQty > 0 ? (
-                <div className="flex items-center h-8 rounded-lg border-2 border-emerald-600 bg-emerald-50 text-emerald-900 shadow-xs">
+                <div className="flex items-center justify-between sm:justify-center h-7 sm:h-8 w-full sm:w-auto rounded-lg border-2 border-emerald-600 bg-emerald-50 text-emerald-900 shadow-xs">
                   <button
                     onClick={handleDecrement}
-                    className="w-7 h-full flex items-center justify-center hover:bg-emerald-200/60 transition-colors rounded-l-md font-bold"
+                    className="w-8 sm:w-7 h-full flex items-center justify-center hover:bg-emerald-200/60 active:bg-emerald-300 transition-colors rounded-l-md font-bold touch-manipulation"
                     aria-label="Decrease quantity"
                   >
                     <Minus className="w-3.5 h-3.5 text-emerald-800" />
                   </button>
-                  <span className="w-6 text-center text-xs font-black select-none text-emerald-900">
+                  <span className="px-2 text-center text-xs font-black select-none text-emerald-900">
                     {currentQty}
                   </span>
                   <button
                     onClick={handleIncrement}
                     disabled={currentQty >= effectiveStock}
-                    className="w-7 h-full flex items-center justify-center hover:bg-emerald-200/60 transition-colors rounded-r-md disabled:opacity-40 font-bold"
+                    className="w-8 sm:w-7 h-full flex items-center justify-center hover:bg-emerald-200/60 active:bg-emerald-300 transition-colors rounded-r-md disabled:opacity-40 font-bold touch-manipulation"
                     aria-label="Increase quantity"
                   >
                     <Plus className="w-3.5 h-3.5 text-emerald-800" />
@@ -227,7 +227,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                   size="sm"
                   variant="supermarket"
                   onClick={handleAdd}
-                  className="h-8 px-3.5 text-xs font-bold gap-1 rounded-lg shadow-xs hover:shadow transition-all"
+                  className="w-full sm:w-auto h-7 sm:h-8 px-2.5 sm:px-3.5 text-xs font-bold gap-1 rounded-lg shadow-xs hover:shadow transition-all touch-manipulation flex items-center justify-center"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Add</span>

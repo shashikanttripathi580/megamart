@@ -279,7 +279,7 @@ export const CheckoutPage: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-6 sm:py-8 space-y-6">
+    <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-8 space-y-5 sm:space-y-6 pb-28 lg:pb-8">
       {/* Breadcrumb Navigation */}
       <div className="flex items-center gap-2 text-xs text-slate-500">
         <Link to="/cart" className="hover:text-emerald-700 flex items-center gap-1 transition-colors">
@@ -323,7 +323,7 @@ export const CheckoutPage: React.FC = () => {
       )}
 
       {/* Main Grid: Form Left, Summary Right */}
-      <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      <form id="checkout-form" onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         {/* Left 2 Cols: Form Sections */}
         <div className="lg:col-span-2 space-y-6">
           {/* Section 1: Customer Contact Info */}
@@ -714,6 +714,31 @@ export const CheckoutPage: React.FC = () => {
           </div>
         </div>
       </form>
+
+      {/* Sticky Mobile Place Order Bar */}
+      <div 
+        className="fixed lg:hidden bottom-0 left-0 right-0 px-4 py-3 bg-white/95 backdrop-blur-md border-t border-slate-200 shadow-[0_-4px_16px_rgba(0,0,0,0.08)] z-40 flex items-center justify-between gap-3"
+        style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 12px), 12px)' }}
+      >
+        <div>
+          <span className="text-[10px] text-slate-500 font-medium block">Total Payable</span>
+          <span className="text-base sm:text-lg font-black text-slate-900">{formatCurrency(total)}</span>
+        </div>
+        <Button
+          type="submit"
+          form="checkout-form"
+          size="default"
+          variant="supermarket"
+          disabled={isSubmitting || isPreValidating}
+          className="font-bold text-xs sm:text-sm px-5 h-10 shadow-xs touch-manipulation disabled:opacity-50"
+        >
+          {isSubmitting ? (
+            <span className="flex items-center gap-1.5"><Loader2 className="w-3.5 h-3.5 animate-spin" /> Placing...</span>
+          ) : (
+            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5" /> Place Order</span>
+          )}
+        </Button>
+      </div>
     </div>
   );
 };

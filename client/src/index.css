@@ -101,6 +101,14 @@ body {
   overscroll-behavior-y: none;
 }
 
+.pb-safe {
+  padding-bottom: max(env(safe-area-inset-bottom, 12px), 12px);
+}
+
+.pt-safe {
+  padding-top: max(env(safe-area-inset-top, 0px), 0px);
+}
+
 input, textarea, select, [contenteditable="true"] {
   -webkit-user-select: text;
   user-select: text;

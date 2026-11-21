@@ -55,15 +55,15 @@ export const HomePage: React.FC = () => {
   });
 
   return (
-    <div className="container mx-auto px-4 py-6 sm:py-8 space-y-10 pb-16">
+    <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-8 space-y-8 sm:space-y-10 pb-20 md:pb-16">
       {/* 1. Category Navigation Grid */}
       <section>
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-3 sm:mb-4">
           <div>
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+            <h2 className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
               Shop by Category
             </h2>
-            <p className="text-xs text-slate-500 font-medium mt-0.5">Explore our complete supermarket catalog</p>
+            <p className="text-[11px] sm:text-xs text-slate-500 font-medium mt-0.5">Explore our complete supermarket catalog</p>
           </div>
           <Link
             to="/products"
@@ -74,9 +74,9 @@ export const HomePage: React.FC = () => {
         </div>
 
         {categoriesLoading ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-4">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="h-32 rounded-2xl bg-slate-100 animate-pulse" />
+              <div key={i} className="h-28 sm:h-32 rounded-xl sm:rounded-2xl bg-slate-100 animate-pulse" />
             ))}
           </div>
         ) : categoriesError ? (
@@ -84,14 +84,14 @@ export const HomePage: React.FC = () => {
             Failed to load categories.
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-4">
             {categories.map((cat) => (
               <Link
                 key={cat._id}
                 to={`/category/${cat.slug}`}
-                className="group p-3 rounded-2xl border border-slate-200 bg-white hover:border-emerald-500 hover:shadow-md transition-all flex flex-col items-center text-center gap-2.5"
+                className="group p-2 sm:p-3 rounded-xl sm:rounded-2xl border border-slate-200 bg-white hover:border-emerald-500 hover:shadow-md transition-all flex flex-col items-center text-center gap-1.5 sm:gap-2.5"
               >
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-white border border-slate-100 flex items-center justify-center overflow-hidden p-2 group-hover:scale-105 transition-transform">
+                <div className="w-14 h-14 sm:w-24 sm:h-24 rounded-lg sm:rounded-xl bg-white border border-slate-100 flex items-center justify-center overflow-hidden p-1.5 sm:p-2 group-hover:scale-105 transition-transform">
                   {cat.image ? (
                     <img
                       src={cat.image}
@@ -100,10 +100,10 @@ export const HomePage: React.FC = () => {
                       loading="lazy"
                     />
                   ) : (
-                    <Package className="w-8 h-8 text-emerald-700" />
+                    <Package className="w-7 h-7 sm:w-8 sm:h-8 text-emerald-700" />
                   )}
                 </div>
-                <h3 className="text-xs font-bold text-slate-800 group-hover:text-emerald-700 transition-colors line-clamp-1">
+                <h3 className="text-[11px] sm:text-xs font-bold text-slate-800 group-hover:text-emerald-700 transition-colors line-clamp-1">
                   {cat.name}
                 </h3>
               </Link>

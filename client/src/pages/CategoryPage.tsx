@@ -91,7 +91,7 @@ export const CategoryPage: React.FC = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6 sm:py-8 space-y-6">
+    <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-8 space-y-5 sm:space-y-6 pb-20 md:pb-8">
       {/* Breadcrumb Navigation */}
       <nav className="flex items-center gap-1.5 text-xs text-slate-500">
         <Link to="/" className="hover:text-emerald-700 transition-colors">Home</Link>
@@ -193,7 +193,7 @@ export const CategoryPage: React.FC = () => {
           onActionClick={() => refetch()}
         />
       ) : productsData?.data && productsData.data.length > 0 ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-4.5">
           {productsData.data.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}

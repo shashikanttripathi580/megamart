@@ -105,7 +105,7 @@ export const ProductsPage: React.FC = () => {
   const activeCategoryObj = categories.find((c) => c.slug === categoryParam);
 
   return (
-    <div className="container mx-auto px-4 py-4 sm:py-6 space-y-4">
+    <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-6 space-y-4 pb-20 md:pb-8">
       {/* 1. Breadcrumbs */}
       <nav className="flex items-center gap-1.5 text-xs text-slate-500 overflow-x-auto no-scrollbar pb-1">
         <Link to="/" className="hover:text-emerald-700 transition-colors shrink-0">Home</Link>
@@ -397,7 +397,7 @@ export const ProductsPage: React.FC = () => {
             />
           ) : productsData?.data && productsData.data.length > 0 ? (
             <>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-5">
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-4.5">
                 {productsData.data.map((product) => (
                   <ProductCard key={product._id} product={product} />
                 ))}
