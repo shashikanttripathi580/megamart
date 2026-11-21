@@ -1,0 +1,35 @@
+{
+  "name": "megamart",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MegaMart - Production-ready supermarket e-commerce platform",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=client",
+    "dev:all": "concurrently \"npm run dev --workspace=server\" \"npm run dev --workspace=client\"",
+    "dev:client": "npm run dev --workspace=client",
+    "dev:server": "npm run dev --workspace=server",
+    "build:client": "npm run build --workspace=client",
+    "build:server": "npm run build --workspace=server",
+    "build": "npm run build:server && npm run build:client",
+    "android:sync": "npm run build:client && cd client && npx cap sync android",
+    "android:open": "cd client && npx cap open android",
+    "android:build": "npm run build:client && cd client && npx cap sync android && cd android && gradlew.bat assembleDebug",
+    "seed": "npm run seed --workspace=server",
+    "test:api": "npm run test:api --workspace=server"
+  },
+  "keywords": [
+    "supermarket",
+    "e-commerce",
+    "grocery",
+    "react",
+    "express",
+    "typescript",
+    "mongodb"
+  ],
+  "author": "MegaMart Engineering",
+  "license": "ISC"
+}
